@@ -1,70 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 * {
   padding: 0;
   margin: 0;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
-  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  position: absolute;
 }
-.container{
-  width: 100vw;
-  min-height: 100vh;
-  padding: 0;
-  margin-top: 0;
-  text-align: center;
+.container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  position: relative;
-}
-img{
-    width: 100%;
-    height: 70vh;
-}
-.image {
-  height: 60vh;
-  background-image: url("./image/flood2.jpeg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: relative;
-  margin-top: -25vh;
-}
-h2{
-text-align: center;
-display: flex;
-justify-content: center;
- /* position: relative; */
-margin-top: -20vh;
-color: rgb(45, 122, 236);
-}
-.container a{
-    padding: 10px;
-    background-color: rgb(73, 231, 133);
-    border-radius: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    color: white;
-    justify-content: center;
-    margin-top: -30vh;
 }
 
-.container .content{
-    justify-content: center;
-    margin-top: 60px;
-    width: 70vw;
-    padding-bottom: 40px;
+h2 {
+  margin-bottom: 20px;
 }
-.container .content h4{
-    justify-content: center;
-    text-align: center;
-    margin-left: 15vw;
-    margin-top: 10px;
+
+li {
+  font-size: 1.2rem;
+  padding-bottom: 10px;
 }
-.container .content p{
-    width: 70vw;
-    margin-left: 15vw;
-    float: left;
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+  padding-bottom: 20px;
+}
+
+a {
+  padding: 10px;
+  background-color: rgb(250, 250, 250);
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  justify-content: center;
+  border: 1px solid black;
+  width: 150px;
+}
+
+.content {
+  justify-content: center;
+  padding: 20px;
 }
