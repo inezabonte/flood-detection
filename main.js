@@ -6,3 +6,10 @@ const attribution =
 const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const tiles = L.tileLayer(tileUrl, { attribution });
 tiles.addTo(mymap);
+
+$.getJSON(
+  "https://raw.githubusercontent.com/inezabonte/flood-detection/main/RW_districts.geojson",
+  function (data) {
+    L.geoJSON(data).addTo(mymap);
+  }
+);
