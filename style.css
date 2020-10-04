@@ -40,10 +40,10 @@ body {
 }
 
 h1 {
-  z-index: 100000;
-  position: absolute;
+  z-index: 1000;
+  position: relative;
   color: white;
   text-align: center;
-  left: 500px;
+  left: 100px;
   top: 40px;
 }
