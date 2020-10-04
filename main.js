@@ -1,4 +1,4 @@
-const mymap = L.map("mapid").setView([-1.9403, 29.8739], 9);
+const map = L.map("mapid").setView([-1.9403, 29.8739], 9);
 
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -6,47 +6,33 @@ const attribution =
 const tileUrl =
   "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
 const tiles = L.tileLayer(tileUrl, { attribution });
-tiles.addTo(mymap);
+tiles.addTo(map);
 
 function getColor(d) {
-  return d > 20
+  return d > 25
     ? "#800026"
-    : d > 15
+    : d > 20
     ? "#BD0026"
-    : d > 10
+    : d > 15
     ? "#E31A1C"
-    : d > 5
+    : d > 10
     ? "#FC4E2A"
-    : d > 3
+    : d > 7
     ? "#FD8D3C"
-    : d > 2
+    : d > 4
     ? "#FEB24C"
     : d > 1
     ? "#FED976"
     : "#FFEDA0";
 }
 
-$.getJSON(
-  "https://raw.githubusercontent.com/inezabonte/flood-detection/main/RW_districts.geojson",
-  (data) => {
-    L.geoJSON(data, {
-      onEachFeature: function (feature, layer) {
-        $.getJSON("damages.json", (data) => {
-          let density;
-          $.each(data, (key, object) => {
-            if (object.District == feature.properties.NAME_2) {
-              density = parseInt(object.Deaths, 10);
-            }
-          });
-          style(density);
-        });
-      },
-    });
-  }
-);
-
-function style(density) {
-  console.log(density);
+function style(feature) {
+  var density;
+  damages.forEach((element) => {
+    if (element.District == feature.properties.NAME_2) {
+      density = Number(element.Deaths);
+    }
+  });
   return {
     fillColor: getColor(density),
     weight: 2,
@@ -56,7 +42,6 @@ function style(density) {
     fillOpacity: 0.7,
   };
 }
-
 function highlightFeature(e) {
   var layer = e.target;
 
@@ -70,12 +55,15 @@ function highlightFeature(e) {
   if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
     layer.bringToFront();
   }
-  info.update(layer.feature.properties);
+  damages.forEach((element) => {
+    if (element.District == layer.feature.properties.NAME_2) {
+      info.update(element);
+    }
+  });
 }
 
 function resetHighlight(e) {
   geojson.resetStyle(e.target);
-
   info.update();
 }
 
@@ -83,6 +71,20 @@ function zoomToFeature(e) {
   map.fitBounds(e.target.getBounds());
 }
 
+function onEachFeature(feature, layer) {
+  layer.on({
+    mouseover: highlightFeature,
+    mouseout: resetHighlight,
+    click: zoomToFeature,
+  });
+}
+
+geojson = L.geoJson(districts, {
+  style: style,
+  onEachFeature: onEachFeature,
+}).addTo(map);
+
+//Control-----------------------------
 var info = L.control();
 
 info.onAdd = function (map) {
@@ -94,40 +96,49 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
   this._div.innerHTML =
-    "<h4>US Population Density</h4>" +
+    "<h4>Rwanda Flood Detection</h4>" +
     (props
       ? "<b>" +
-        props.name +
-        "</b><br />" +
-        props.density +
-        " people / mi<sup>2</sup>"
+        props.District +
+        "</b><br>" +
+        props.Deaths +
+        " Deaths" +
+        "<br>" +
+        props.Injured +
+        " Injured" +
+        "<br>" +
+        props.Houses_Damaged +
+        " Houses Damaged" +
+        "<br>" +
+        props.Crops_Ha +
+        " Hectares Desroyed" +
+        "<br>" +
+        props.Livestock +
+        " Livestock" +
+        "<br>"
       : "Hover over a state");
 };
 
-info.addTo(mymap);
+info.addTo(map);
 
-$.getJSON(
-  "https://raw.githubusercontent.com/inezabonte/flood-detection/main/RW_districts.geojson",
-  function (data) {
-    L.geoJSON(data, {
-      onEachFeature: function (feature, layer) {
-        $.getJSON("damages.json", (data) => {
-          $.each(data, (key, object) => {
-            if (object.District == feature.properties.NAME_2) {
-              layer.bindPopup(
-                `District:${object.District} <br> 
-                Deaths:${object.Deaths} <br> 
-                Injured:${object.Injured} <br>
-                Houses Damaged:${object.Houses_Damaged} <br>
-                Crops Hectares:${object.Crops_Ha} <br>
-                Livestock:${object.Livestock}`
-              );
-            }
-          });
-        });
-      },
+var legend = L.control({ position: "bottomright" });
 
-      style: style,
-    }).addTo(mymap);
+legend.onAdd = function (map) {
+  var div = L.DomUtil.create("div", "info legend"),
+    grades = [0, 1, 4, 7, 10, 15, 20, 25],
+    labels = [];
+
+  // loop through our density intervals and generate a label with a colored square for each interval
+  for (var i = 0; i < grades.length; i++) {
+    div.innerHTML +=
+      '<i style="background:' +
+      getColor(grades[i] + 1) +
+      '"></i> ' +
+      grades[i] +
+      (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
   }
-);
+
+  return div;
+};
+
+legend.addTo(map);
