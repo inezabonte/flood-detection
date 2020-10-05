@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap");
 
 * {
   padding: 0;
@@ -9,12 +9,18 @@
 body {
   display: flex;
   justify-content: center;
+  background-color: rgb(230, 198, 193);
 }
 .container {
   width: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 0 6px 6px rgba(0, 0, 0, 0.1);
+  margin: 50px;
+  border-radius: 5px;
+  padding-bottom: 50px;
 }
 
 h2 {
@@ -30,17 +36,32 @@ p {
   font-size: 1.2rem;
   line-height: 1.7rem;
   padding-bottom: 20px;
+  font-weight: 400;
+}
+
+ul {
+  margin-left: 20px;
 }
 
 a {
   padding: 10px;
-  background-color: rgb(250, 250, 250);
+  background-color: #fafafa;
   cursor: pointer;
   text-decoration: none;
   color: black;
   justify-content: center;
   border: 1px solid black;
   width: 150px;
+  margin-left: 20px;
+  transition: all 0.3s;
+}
+
+a:hover {
+  background-color: #ececec;
+}
+
+a:active {
+  transform: scale(1.15);
 }
 
 .content {
