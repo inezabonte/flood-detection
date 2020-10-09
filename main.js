@@ -12,18 +12,18 @@ function getColor(d) {
   return d > 25
     ? "#800026"
     : d > 20
-    ? "#BD0026"
-    : d > 15
-    ? "#E31A1C"
-    : d > 10
-    ? "#FC4E2A"
-    : d > 7
-    ? "#FD8D3C"
-    : d > 4
-    ? "#FEB24C"
-    : d > 1
-    ? "#FED976"
-    : "#FFEDA0";
+      ? "#BD0026"
+      : d > 15
+        ? "#E31A1C"
+        : d > 10
+          ? "#FC4E2A"
+          : d > 7
+            ? "#FD8D3C"
+            : d > 4
+              ? "#FEB24C"
+              : d > 1
+                ? "#FED976"
+                : "#FFEDA0";
 }
 
 function style(feature) {
@@ -99,23 +99,23 @@ info.update = function (props) {
     "<h4>Rwanda Flood Detection</h4>" +
     (props
       ? "<b>" +
-        props.District +
-        "</b><br>" +
-        props.Deaths +
-        " Deaths" +
-        "<br>" +
-        props.Injured +
-        " Injured" +
-        "<br>" +
-        props.Houses_Damaged +
-        " Houses Damaged" +
-        "<br>" +
-        props.Crops_Ha +
-        " Hectares Desroyed" +
-        "<br>" +
-        props.Livestock +
-        " Livestock" +
-        "<br>"
+      props.District +
+      "</b><br>" +
+      props.Deaths +
+      " Deaths" +
+      "<br>" +
+      props.Injured +
+      " Injured" +
+      "<br>" +
+      props.Houses_Damaged +
+      " Houses Damaged" +
+      "<br>" +
+      props.Crops_Ha +
+      " Hectares Desroyed" +
+      "<br>" +
+      props.Livestock +
+      " Livestock" +
+      "<br>"
       : "Hover over a state");
 };
 

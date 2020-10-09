@@ -44,6 +44,7 @@ ul {
 }
 
 a {
+  align-self: center;
   padding: 10px;
   background-color: #fafafa;
   cursor: pointer;
@@ -52,8 +53,8 @@ a {
   justify-content: center;
   border: 1px solid black;
   width: 150px;
-  margin-left: 20px;
   transition: all 0.3s;
+  margin-bottom: 20px;
 }
 
 a:hover {
@@ -67,4 +68,46 @@ a:active {
 .content {
   justify-content: center;
   padding: 20px;
+}
+
+.github{
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  background-color: black;
+  width: 150px;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 0 6px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+@media screen and (max-width: 1180px) {
+  .container {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .container {
+    width: 90%;
+    margin: 50px, 0, 50px, 0;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .container {
+    margin: 0;
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+  }
 }
